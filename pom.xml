@@ -10,7 +10,13 @@
     <packaging>war</packaging>
     <description>A Spring Framework application based on JSP, Spring MVC, Spring Data JPA, Hibernate and JDBC</description>
     <url>https://spring-petclinic.github.io/</url>
-
+    <distributionManagement>
+        <repository>
+          <id>github</id>
+          <name>GitHub Packages</name>
+          <url>https://maven.pkg.github.com/cpg-ss/spring-framework-petclinic</url>
+        </repository>
+     </distributionManagement>
     <properties>
 
         <!-- Generic properties -->
