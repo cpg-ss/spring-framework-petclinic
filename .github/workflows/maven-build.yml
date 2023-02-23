@@ -6,11 +6,11 @@ name: Java CI with Maven
 on:
   push:
     branches: [ main ]
-    tags:
-      - "v*.*.*"
   pull_request:
     branches: [ main ]
   workflow_dispatch:
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -32,8 +32,12 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Release
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: |
           readme.md
           target/*.war
+    - name: Publish package
+      run: mvn --batch-mode deploy
+      if: startsWith(github.ref, 'refs/releases/')
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
